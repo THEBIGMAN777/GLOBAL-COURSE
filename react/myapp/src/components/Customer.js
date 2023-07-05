@@ -24,7 +24,9 @@ const Customer=()=>{
     ]
     return(
         <div>
-            <thead>
+        <table className='Table1'>
+            
+            <thead >
                 <tr>
                     <th>id</th>
                     <th>Name</th>
@@ -36,8 +38,8 @@ const Customer=()=>{
                     Custo.map((customer)=><tr><td>{customer.id}</td><td>{customer.name}</td><td>{customer.location}</td></tr>)
                 }
             </tbody>
+        </table>
         </div>
-
     )
 
 }
