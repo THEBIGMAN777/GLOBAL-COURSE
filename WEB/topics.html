@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topics to learn</title>
+</head>
+<body>
+
+    <h1>Topics to Learn</h1>
+    <label for="Topics">Topics to learn: </label>
+    <input type="text" name="name" id = "name" placeholder="Enter the topics " onclick="Push()"><br>
+    <h1 id ="result">result</h1>
+    <script>
+        top =[]
+        function Push(){
+        if(event.key==="Enter"){
+            x = document.getElementById('name').value 
+            top.push(x)
+            displaytodo()
+        }
+        function displaytodo(){
+            document.getElementById("result").innerHTML =top
+        }
+
+        }
+    </script>
+</body>
+</html>

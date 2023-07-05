@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Counter</title>
+</head>
+<body>
+    <h1>Simple Counter</h1>
+    <h2>Increment</h2>
+    <button id="plus" onclick="Increm()">+</button><br>
+    <h2>Decrement</h2>
+    <button id="minus" onclick="Decrem()">-</button>
+    <h1 id="res"></h1>
+    
+    <script>
+        count = 0
+        function Increm(){
+            if(count == 0){
+                document.getElementById("plus").innerHTML = 0
+            }
+            console.log("Increm is called")
+            count = count+1
+            document.getElementById("plus").innerHTML = count
+        }
+        function Decrem(){
+            console.log("Decrem is called")
+            if( count == 0)
+                document.getElementById("minus").innerHTML = 0 
+            else{
+            count = count-1
+            document.getElementById("minus").innerHTML = count
+        }
+    }
+    </script>
+</body>
+</html>
