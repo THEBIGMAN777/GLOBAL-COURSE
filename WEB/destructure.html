@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Destructuring</h1>
+    <script>
+        console.log("array destructuring")
+        const vehicles = ['Pleasure','Enfield','Swift','Innova']
+        const [scooter, bike, car,suv] = vehicles //similar to aliasing
+        console.log(car)
+
+        console.log("Object Destructuring")
+        employee = {
+                code: 1,
+                name: 'A',
+                dept: 'IT',
+                desg: 'Manager',
+                salary: 30000 
+        }
+        function displaydesg({desg}){
+            console.log("Your designation is ",desg)
+        }
+        displaydesg(employee)
+
+        updatedvehiclelist = [...vehicles,'Chetak']
+        console.log(updatedvehiclelist)
+
+
+
+    </script>
+</body>
+</html>
