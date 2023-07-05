@@ -3,70 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lambda functions</title>
+    <title>Higher Order Functions</title>
 </head>
 <body>
-    <h1>Lambda functions</h1>
+
+    <h1>Higer Order functions</h1>
 
     <script>
-        function add(n1,n2){
-            return n1+n2
+
+        marks = [20,18,22,24,14,16,12,24,10]
+        marksbelow15=[]
+        for (i=0;i<marks.length;i++){
+            if (marks[i]<15)
+                marksbelow15.push(marks[i])
         }
-
-        res=add(100,200)
-        console.log("function with a name add",res)
-
-        // var,let,const
-        var multiply=function (n1,n2){
-            return n1*n2
-        }
-
-        res=multiply(4,3)
-        console.log("function without a name-multiplication ",res)
-
-        subtract=(n1,n2)=>n1-n2
-        res=subtract(100,50)
-        console.log("lambda function ",res)
-
-        var si=function (p,r,t){
-            return (p*r*t)/100
-        }
-        res =si(10000,6,1)
-        console.log("si ",res)
-
-        silambda = (p,r,t)=>(p*r*t)/100
-
-        res =silambda(10000,6,1)
-        console.log("si lambda",res)
-
-
-        const evenOrOdd=(num)=>num%2==0?"Even":"Odd"
-
-        res = evenOrOdd(13)
-        console.log("evenOrOdd",res)
-        const pi=3.143
-        console.log('pi ',pi)
-        //pi=4.13
-        //console.log('pi after reassign ',pi)
+        console.log("higher order function - filter")
+        console.log("marksbelow15 ",marksbelow15)
+        marksbelow15filter =marks.filter((mark)=>mark<15)
+        console.log("marksbelow15 with higher order function",marksbelow15filter)
+        console.log("higher order function map")
+        console.log("map ")
+        updmarks = marks.map((mark)=>mark+1)
+        console.log("original marks ",marks)
+        console.log("updated marks ",updmarks)
         
-        const marks=[20,30,40]
-        console.log("marks ",marks)
-        //marks=[40,50,60]
-        //console.log("marks after reassignment",marks)
 
-        value=10
-
-        function test(){
-            let value = 30
-            console.log("value inside test",value)
-
-        }
-        test()
-        console.log("value outside of function ",value)
-
+        
 
     </script>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher Order Functions</title>
+</head>
+<body>
 
+    <h1>Higer Order functions</h1>
+
+    <script>
+        employee = [
+            {
+                code: 1,
+                name: 'A',
+                dept: 'IT',
+                desg: 'B',
+                salary: 30000
+            },
+            {
+                code: 2,
+                name: 'B',
+                dept: 'Admin',
+                desg: 'C',
+                salary: 50000
+            },
+            {
+                code: 3,
+                name: 'C',
+                dept: 'IT',
+                desg: 'D',
+                salary: 30000
+            },
+            {
+                code: 1,
+                name: 'A',
+                dept: 'SR Executive',
+                desg: 'B',
+                salary: 30000
+            }
+        ]
+        
+        
+        
+       
+        samedept=employee.filter((emp)=>emp.dept == 'IT' )
+        console.log(samedept)
+        
+        updsalary = employee.map((em)=>em.salary+(em.salary*0.1))
+        console.log(updsalary)
+        
+
+
+        
+
+    </script>
     
 </body>
 </html>
