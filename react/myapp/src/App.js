@@ -5,6 +5,7 @@ import Content from 'C:/Users/chara/OneDrive/Desktop/GLOBAL COURSE/react/myapp/s
 import Footer from 'C:/Users/chara/OneDrive/Desktop/GLOBAL COURSE/react/myapp/src/components/Footer.js';
 import Customer from 'C:/Users/chara/OneDrive/Desktop/GLOBAL COURSE/react/myapp/src/components/Customer.js';
 import Calculate1 from './components/Calculate1';
+import UseEffectDemo from './components/UseEffectDemo';
 function App() {
   return (
     <div className="App">
@@ -13,6 +14,7 @@ function App() {
       <Footer/>
       <Customer/>
       <Calculate1/>
+      <UseEffectDemo/>
     </div>
   );
 }
