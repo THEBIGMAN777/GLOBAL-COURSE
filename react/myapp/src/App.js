@@ -7,6 +7,7 @@ import Customer from 'C:/Users/chara/OneDrive/Desktop/GLOBAL COURSE/react/myapp/
 import Calculate1 from './components/Calculate1';
 import UseEffectDemo from './components/UseEffectDemo';
 import PostAPI from './components/PostAPI';
+import EmployeeMaster from './components/EmployeeMaster';
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,7 @@ function App() {
       <Calculate1/>
       <UseEffectDemo/>
       <PostAPI/>
+      <EmployeeMaster/>
     </div>
   );
 }
