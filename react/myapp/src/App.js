@@ -8,6 +8,7 @@ import Calculate1 from './components/Calculate1';
 import UseEffectDemo from './components/UseEffectDemo';
 import PostAPI from './components/PostAPI';
 import EmployeeMaster from './components/EmployeeMaster';
+import Productmaster from './components/productmaster';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
       <UseEffectDemo/>
       <PostAPI/>
       <EmployeeMaster/>
+      <Productmaster/>
     </div>
   );
 }
