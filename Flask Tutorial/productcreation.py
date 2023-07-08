@@ -1,8 +1,7 @@
 import sqlite3
 
-
 def connect_to_db():
-    conn = sqlite3.connect('databas.db')
+    conn = sqlite3.connect('database.db')
     return conn
 
 def create_db_table():
@@ -10,7 +9,7 @@ def create_db_table():
         conn = connect_to_db()
         #conn.execute('''DROP TABLE users''')
         conn.execute('''
-            CREATE TABLE users (
+            CREATE TABLE products (
                 user_id INTEGER PRIMARY KEY NOT NULL,
                 name TEXT NOT NULL,
                 email TEXT NOT NULL,
@@ -27,7 +26,7 @@ def create_db_table():
     finally:
         conn.close()
 
-#create_db_table()
+create_db_table()
 
 
 def get_user_by_id(user_id):

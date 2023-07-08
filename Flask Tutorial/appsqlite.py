@@ -1,13 +1,11 @@
 #!/usr/bin/python
-
-
 import sqlite3
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 
 def connect_to_db():
-    conn = sqlite3.connect('databas.db')
+    conn = sqlite3.connect('database.db')
     return conn
 
 
