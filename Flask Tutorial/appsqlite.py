@@ -42,7 +42,7 @@ def get_state():
              patient["recovered"] = i["recovered"]
              patient["death"] = i["death"]
              patient["total"] = i["total"]
-        state.append(patient)
+             state.append(patient)
 
     except:
         state = []
@@ -67,7 +67,7 @@ def get_state_by_code(code):
         state["death"] = row["death"]
         state["total"] = row["total"]
     except:
-        user = {}
+        state = {}
 
     return state
 
