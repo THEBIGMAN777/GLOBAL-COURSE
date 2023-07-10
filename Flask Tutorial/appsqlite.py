@@ -12,7 +12,7 @@ def insert_state(corona):
     try:
         conn = connect_to_db()
         cur = conn.cursor()
-        cur.execute("INSERT INTO corona (statename, active, recovered, death,total) VALUES (?, ?, ?, ?, ?)", (corona['statename'], corona['active'], corona['recovered'], corona['death'], corona['total']) )
+        cur.execute("INSERT INTO corona (code, statename, active, recovered, death,total) VALUES (?, ?, ?, ?, ?, ?)", (corona['code'],corona['statename'], corona['active'], corona['recovered'], corona['death'], corona['total']) )
         conn.commit()
         inserted_state = get_state_by_code(cur.lastrowid)
     except:
@@ -77,7 +77,7 @@ def update_state(corona):
     try:
         conn = connect_to_db()
         cur = conn.cursor()
-        cur.execute("UPDATE corona SET  statename = ?, active = ?, recovered = ?, death = ?, total = ? WHERE code =?", (corona["statename"], corona["active"], corona["recovered"], corona["death"], corona["total"], corona["code"],))
+        cur.execute("UPDATE corona SET  statename = ?, active = ?, recovered = ?, death = ?, total = ? WHERE code =?", (corona["statename"], corona["active"], corona["recovered"], corona["death"], corona["total"], corona["code"]))
         conn.commit()
         #return the state
         updated_user = get_state_by_code(updated_state["code"])
@@ -127,7 +127,7 @@ def api_update_user():
     user = request.get_json()
     return jsonify(update_state(user))
 
-@app.route('/api/users/delete/<user_id>',  methods = ['DELETE'])
+@app.route('/api/state/delete/<user_id>',  methods = ['DELETE'])
 def api_delete_user(user_id):
     return jsonify(delete_state(user_id))
 
