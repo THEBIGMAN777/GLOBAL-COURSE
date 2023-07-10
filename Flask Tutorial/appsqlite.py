@@ -5,107 +5,82 @@ from flask_cors import CORS
 
 
 def connect_to_db():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('coronadb1.db')
     return conn
-
-
-def create_db_table():
-    try:
-        conn = connect_to_db()
-        conn.execute('''DROP TABLE users''')
-        conn.execute('''
-            CREATE TABLE users (
-                user_id INTEGER PRIMARY KEY NOT NULL,
-                name TEXT NOT NULL,
-                email TEXT NOT NULL,
-                phone TEXT NOT NULL,
-                address TEXT NOT NULL,
-                country TEXT NOT NULL
-            );
-        ''')
-
-        conn.commit()
-        print("User table created successfully")
-    except:
-        print("User table creation failed - Maybe table")
-    finally:
-        conn.close()
-
-
-def insert_user(user):
-    inserted_user = {}
+def insert_state(corona):
+    inserted_state = {}
     try:
         conn = connect_to_db()
         cur = conn.cursor()
-        cur.execute("INSERT INTO users (name, email, phone, address, country) VALUES (?, ?, ?, ?, ?)", (user['name'], user['email'], user['phone'], user['address'], user['country']) )
+        cur.execute("INSERT INTO corona (statename, active, recovered, death,total) VALUES (?, ?, ?, ?, ?)", (corona['statename'], corona['active'], corona['recovered'], corona['death'], corona['total']) )
         conn.commit()
-        inserted_user = get_user_by_id(cur.lastrowid)
+        inserted_state = get_state_by_code(cur.lastrowid)
     except:
         conn().rollback()
 
     finally:
         conn.close()
 
-    return inserted_user
+    return inserted_state
 
 
-def get_users():
-    users = []
+def get_state():
+    state = []
     try:
         conn = connect_to_db()
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
-        cur.execute("SELECT * FROM users")
+        cur.execute("SELECT * FROM corona")
         rows = cur.fetchall()
 
         # convert row objects to dictionary
         for i in rows:
-            user = {}
-            user["user_id"] = i["user_id"]
-            user["name"] = i["name"]
-            user["email"] = i["email"]
-            user["phone"] = i["phone"]
-            user["address"] = i["address"]
-            user["country"] = i["country"]
-            users.append(user)
+             patient= {}
+             patient["code"] = i["code"]
+             patient["statename"] = i["statename"]
+             patient["active"] = i["active"]
+             patient["recovered"] = i["recovered"]
+             patient["death"] = i["death"]
+             patient["total"] = i["total"]
+        state.append(patient)
 
     except:
-        users = []
+        state = []
 
-    return users
+    return state
 
 
-def get_user_by_id(user_id):
-    user = {}
+def get_state_by_code(code):
+    state = {}
     try:
         conn = connect_to_db()
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
-        cur.execute("SELECT * FROM users WHERE user_id = ?", (user_id,))
+        cur.execute("SELECT * FROM corona WHERE code = ?", (code,))
         row = cur.fetchone()
 
         # convert row object to dictionary
-        user["user_id"] = row["user_id"]
-        user["name"] = row["name"]
-        user["email"] = row["email"]
-        user["phone"] = row["phone"]
-        user["address"] = row["address"]
-        user["country"] = row["country"]
+        state["code"] = row["code"]
+        state["statename"] = row["statename"]
+        state["active"] = row["active"]
+        state["recovered"] = row["recovered"]
+        state["death"] = row["death"]
+        state["total"] = row["total"]
     except:
         user = {}
 
-    return user
+    return state
 
 
-def update_user(user):
-    updated_user = {}
+def update_state(corona):
+    updated_state = {}
     try:
         conn = connect_to_db()
         cur = conn.cursor()
-        cur.execute("UPDATE users SET name = ?, email = ?, phone = ?, address = ?, country = ? WHERE user_id =?", (user["name"], user["email"], user["phone"], user["address"], user["country"], user["user_id"],))
+        cur.execute("UPDATE corona SET  statename = ?, active = ?, recovered = ?, death = ?, total = ? WHERE code =?", (corona["statename"], corona["active"], corona["recovered"], corona["death"], corona["total"], corona["code"],))
         conn.commit()
-        #return the user
-        updated_user = get_user_by_id(user["user_id"])
+        #return the state
+        updated_user = get_state_by_code(updated_state["code"])
 
     except:
         conn.rollback()
@@ -116,16 +91,16 @@ def update_user(user):
     return updated_user
 
 
-def delete_user(user_id):
+def delete_state(code):
     message = {}
     try:
         conn = connect_to_db()
-        conn.execute("DELETE from users WHERE user_id = ?", (user_id,))
+        conn.execute("DELETE from corona WHERE code = ?", (code,))
         conn.commit()
-        message["status"] = "User deleted successfully"
+        message["status"] = "state deleted successfully"
     except:
         conn.rollback()
-        message["status"] = "Cannot delete user"
+        message["status"] = "Cannot delete state"
     finally:
         conn.close()
 
@@ -134,27 +109,27 @@ def delete_user(user_id):
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-@app.route('/api/users', methods=['GET'])
+@app.route('/api/state', methods=['GET'])
 def api_get_users():
-    return jsonify(get_users())
+    return jsonify(get_state())
 
-@app.route('/api/users/<user_id>', methods=['GET'])
-def api_get_user(user_id):
-    return jsonify(get_user_by_id(user_id))
+@app.route('/api/state/<code>', methods=['GET'])
+def api_get_user(code):
+    return jsonify(get_state_by_code(code))
 
-@app.route('/api/users/add',  methods = ['POST'])
+@app.route('/api/state/add',  methods = ['POST'])
 def api_add_user():
     user = request.get_json()
-    return jsonify(insert_user(user))
+    return jsonify(insert_state(user))
 
-@app.route('/api/users/update',  methods = ['PUT'])
+@app.route('/api/state/update',  methods = ['PUT'])
 def api_update_user():
     user = request.get_json()
-    return jsonify(update_user(user))
+    return jsonify(update_state(user))
 
 @app.route('/api/users/delete/<user_id>',  methods = ['DELETE'])
 def api_delete_user(user_id):
-    return jsonify(delete_user(user_id))
+    return jsonify(delete_state(user_id))
 
 
 if __name__ == "__main__":
